@@ -31,5 +31,8 @@ fun main() {
     println("1. Name: \"${first.name}\" Age: \"${first.age}\". Height: \"${first.height}\". Weight: \"${first.weight}\"")
     println("2. Name: \"${twice.name}\". Age: \"${twice.age}\". Height: \"${twice.height}\". Weight: \"${twice.weight}\"")
 
+    first.sayHello()
+    twice.sayHello()
+    first.run()
 
 }
