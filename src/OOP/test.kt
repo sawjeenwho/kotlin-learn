@@ -1,26 +1,35 @@
-package OOP
-
 class Car {
     var brand = ""
     var model = ""
     var enginePower = 0
     var bodyColor = ""
 
-    fun drive() {
-        println("Еду на автомобиле")
-    }
+    fun init(brand: String, model: String, enginePower: Int, bodyColor: String) {
+        this.brand = brand
+        this.model = model
+        this.enginePower = enginePower
+        this.bodyColor = bodyColor
+    } //добавьте метод init()
 
-    fun refuel(gas: String, brand: String, quantity: Int) {
-        println("Произведена заправка на АЗС \"$gas\"")
-        println("Марка бензина: $brand")
-        println("Кол-во литров: $quantity")
+    fun drive() {
+        //измените метод
+        if (enginePower >= 120) {
+            println("Еду быстро, но недалеко на $brand $model")
+        } else if (enginePower < 120){
+            println("Еду далеко, но небыстро на $brand $model")
+        }
     }
-    // объявите здесь функцию refuel()
 }
 
 fun task() {
-    val arguments = readln().split(" ")
     val car = Car()
-    car.refuel(arguments[0], arguments[1], arguments[2].toInt())
-    //создайте здесь экземпляр Car и вызовите у него метод refuel()
+    val carInfo = readln().split(" ")
+    val brand = carInfo[0]
+    val model = carInfo[1]
+    val enginePower = carInfo[2].toInt()
+    val bodyColor = carInfo[3]
+
+    car.init(brand, model, enginePower, bodyColor)
+    car.drive()
+    //создайте здесь экземпляр Car и вызовите у него методы init() и drive()
 }
