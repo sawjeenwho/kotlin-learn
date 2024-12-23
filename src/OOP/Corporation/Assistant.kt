@@ -1,10 +1,29 @@
 package OOP.Corporation
 
+import OOP.Corporation.products.Enums.PositionType
+
 class Assistant(
-    name: String
-): Worker(name) {
+    id: Int,
+    name: String,
+    age: Int,
+    salary: Int
+): Worker(
+    id = id,
+    name = name,
+    age = age,
+    salary = salary,
+    positionType = PositionType.ASSISTANT
+), Cleaner, Supplier {
     override fun work() {
-        println("I am talking on the phone....")
+        println("Assistant: I am talking on the phone....")
+    }
+
+    override fun clean() {
+        println("I'm Assistant. I'm cleaning workplace...")
+    }
+
+    override fun buyItems() {
+        println("I'm Assistant. I'm buying items...")
     }
 
     fun bringCoffee(count: Int = 1, type: String = "Cappuccino"): String {

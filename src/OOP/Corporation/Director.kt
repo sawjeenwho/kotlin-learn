@@ -1,12 +1,25 @@
 package OOP.Corporation
 
+import OOP.Corporation.products.Enums.PositionType
+
 class Director(
+    id: Int,
     name: String,
     age: Int,
-) : Worker(name, age) {
+    salary: Int
+) : Worker(
+    id = id,
+    name = name,
+    age = age,
+    salary = salary,
+    positionType = PositionType.DIRECTOR
+), Supplier {
 
     override fun work() {
-        println("I'm drinking coffee...")
+        println("Director: I'm drinking coffee...")
+    }
+    override fun buyItems() {
+        println("I'm Director. I'm buying items...")
     }
 
     fun takeCoffe(assistant: Assistant) {

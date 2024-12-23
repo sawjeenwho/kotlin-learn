@@ -1,14 +1,15 @@
 package OOP.Corporation
 
-open class ProductCard(
+import OOP.Corporation.products.Enums.ProductType
+
+abstract class ProductCard(
     val name: String,
     val brand: String,
-    val price: Int
+    val price: Int,
+    val productType: ProductType
 ) {
 
-    open fun printInfo() {
-        print("Name: $name Brand: $brand Price: $price ")
+    fun printInfo() {
+        println(this)
     }
-
-
 }

@@ -1,14 +1,27 @@
 package OOP.Corporation
 
+import OOP.Corporation.products.Enums.PositionType
 import kotlin.random.Random
 
 class Consultant(
+    id: Int,
     name: String,
     age: Int = 0,
-) : Worker(name, age) {
+    salary: Int
+) : Worker(
+    id = id,
+    name = name,
+    age = age,
+    salary = salary,
+    positionType = PositionType.CONSULTANT
+), Cleaner {
 
     override fun work() {
-        println("I am consulting clients...")
+        println("Consultant: I am consulting clients...")
+    }
+
+    override fun clean() {
+        println("I'm Consultant. I'm cleaning workplace...")
     }
 
     fun hello() {

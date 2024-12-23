@@ -1,17 +1,30 @@
 package OOP.Profile
 
-class Person {
-    val name: String
-    val age: Int
-    val height: Int
-    val weight: Int
+class Person(
+    private val name: String,
+     var lastName: String,
+    private val height: Int,
+    private val weight: Int
+) {
 
-    constructor(name: String, age: Int, height: Int, weight: Int) {
-        this.name = name
-        this.age = age
-        this.height = height
-        this.weight = weight
-    }
+
+    val fullName: String
+        get() = "$name $lastName"
+
+
+    var age = 0
+
+        set(value) {
+            if (value < field) {
+                println("The age can only be increased...")
+            } else {
+                field = value
+            }
+        }
+        get() {
+            println("It's not decent to ask about age!")
+            return field
+        }
 
     fun sayHello() {
         println("Hello! My name is $name")
