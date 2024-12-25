@@ -1,5 +1,6 @@
 package OOP.Corporation
 
+import OOP.Corporation.Repositories.WorkersRepository
 import OOP.Corporation.products.AppliancesCard
 import OOP.Corporation.products.Enums.OperationCode
 import OOP.Corporation.products.FoodProductsCard
@@ -23,8 +24,8 @@ class Accountant(
 ), Cleaner, Supplier {
 
 
+    private val workersRepository = WorkersRepository()
     private val file = File("product_cards.txt")
-    private val fileEmployee = File("employee.txt")
 
     override fun clean() {
         println("I'm Accountant. I'm cleaning workplace...")
@@ -88,76 +89,29 @@ class Accountant(
             PositionType.ASSISTANT -> Assistant(id, name, age, salary)
             PositionType.CONSULTANT -> Consultant(id, name, age, salary)
         }
-        saveNewEmployeeToFile(employee)
+        workersRepository.registerNewEmployee(employee)
     }
 
     private fun changeSalary() {
-        val employees = loadAllEmployee()
         print("Enter employee's id to change salary: ")
         val changeSalaryIndex = readln().toInt()
         print("Enter new salary: ")
         val newSalary = readln().toInt()
-        fileEmployee.writeText("")
-        for (employee in employees) {
-            if (employee.id == changeSalaryIndex) {
-                employee.setSalary(newSalary)
-            }
-            saveNewEmployeeToFile(employee)
-        }
-    }
-
-    private fun saveNewEmployeeToFile(worker: Worker) {
-        fileEmployee.appendText("${worker.id}%${worker.name}%${worker.age}%${worker.getSalary()}%${worker.positionType}\n")
+        workersRepository.changeSalary(changeSalaryIndex, newSalary)
     }
 
     fun fireAnEmployee() {
-        val employees = loadAllEmployee()
         print("Enter employee's id to fire: ")
         val fireIndex = readln().toInt()
-        for (employee in employees) {
-            if (employee.id == fireIndex) {
-                employees.remove(employee)
-                break
-            }
-        }
-        fileEmployee.writeText("")
-        for (employee in employees) {
-            saveNewEmployeeToFile(employee)
-        }
+        workersRepository.fireAnEmployee(fireIndex)
     }
 
     private fun showAllEmployee() {
-        val employess = loadAllEmployee()
+        val employess = workersRepository.loadAllEmployee()
         for (employee in employess) {
             employee.printInfo()
         }
 
-    }
-
-    fun loadAllEmployee(): MutableList<Worker> {
-        val employees = mutableListOf<Worker>()
-        val employeeAtFile = fileEmployee.readText().trim()
-        if (employeeAtFile.isEmpty()) {
-            return employees
-        }
-        val employeesAsString = employeeAtFile.split("\n")
-        for (employeeAsString in employeesAsString) {
-            val employeeInfo = employeeAsString.split("%")
-            val id = employeeInfo[0].toInt()
-            val name = employeeInfo[1]
-            val age = employeeInfo[2].toInt()
-            val salary = employeeInfo[3].toInt()
-            val post = employeeInfo.last()
-            val positionType = PositionType.valueOf(post)
-            val employee = when (positionType) {
-                PositionType.DIRECTOR -> Director(id, name, age, salary)
-                PositionType.ACCOUNTANT -> Accountant(id, age, name, salary)
-                PositionType.ASSISTANT -> Assistant(id, name, age, salary)
-                PositionType.CONSULTANT -> Consultant(id, name, age, salary)
-            }
-            employees.add(employee)
-        }
-        return employees
     }
 
     private fun removeProductCard() {
